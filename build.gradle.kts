@@ -5,12 +5,13 @@ plugins {
     id("org.springframework.boot") version "3.4.0"
     id("io.spring.dependency-management") version "1.1.6"
 
-    kotlin("jvm") version "1.9.10"
-    kotlin("plugin.spring") version "1.9.10"
-    kotlin("plugin.jpa") version "1.9.10"
-    kotlin("kapt") version "1.9.10"
+    val kotlinVersion = "1.9.25"
+    kotlin("jvm") version kotlinVersion
+    kotlin("plugin.spring") version kotlinVersion
+    kotlin("plugin.jpa") version kotlinVersion
+    kotlin("kapt") version kotlinVersion
 
-    id("org.jlleitschuh.gradle.ktlint") version "12.1.0"
+    id("org.jlleitschuh.gradle.ktlint") version "12.1.1"
 }
 
 repositories {
@@ -68,14 +69,10 @@ subprojects {
         implementation("org.jetbrains.kotlin:kotlin-reflect")
 
         // swagger
-        implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:${property("springdocOpenapiStarterWebmvcUiVersion")}")
+        implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0")
 
         // spring actuator
         implementation("org.springframework.boot:spring-boot-starter-actuator")
-
-        // hibernate-spatial
-        implementation("org.hibernate:hibernate-spatial:${property("hibernateSpatialVersion")}")
-
 
         // test
         testImplementation("org.springframework.boot:spring-boot-starter-test")
