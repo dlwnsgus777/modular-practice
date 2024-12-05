@@ -61,7 +61,12 @@ subprojects {
     dependencies {
         // spring
         implementation("org.springframework.boot:spring-boot-starter-web")
+
+        // db 관련
+        runtimeOnly("com.h2database:h2")
         implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+
+        // security
         implementation("org.springframework.boot:spring-boot-starter-security")
 
         // kotlin
