@@ -78,7 +78,7 @@ subprojects {
         testImplementation("org.springframework.boot:spring-boot-starter-test")
         testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
         testImplementation("io.rest-assured:rest-assured")
-        testImplementation("io.mockk:mockk")
+        testImplementation("io.mockk:mockk:1.13.13")
         testRuntimeOnly("org.junit.platform:junit-platform-launcher")
         testImplementation("org.springframework.boot:spring-boot-starter-test")
         testImplementation("io.rest-assured:rest-assured")
