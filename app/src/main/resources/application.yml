@@ -22,6 +22,15 @@ spring:
         use_sql_comments: true
         highlight_sql: true
 
+server:
+  port: 8080
+  shutdown: graceful
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
 logging:
 #  config: classpath:log4j2-dev.xml
   level:
@@ -34,3 +43,4 @@ logging:
       example: DEBUG
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
