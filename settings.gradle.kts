@@ -5,6 +5,8 @@ include("app")
 include(
     "member",
     "member:member-api",
+    "member:member-domain",
+    "member:member-infra",
 )
 
 pluginManagement {
