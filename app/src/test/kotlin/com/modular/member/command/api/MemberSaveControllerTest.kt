@@ -1,5 +1,6 @@
 package com.modular.member.command.api
 
+import com.modular.member.command.api.dto.MemberSaveRequestV1
 import com.modular.support.IntegrationTestController
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -16,8 +17,8 @@ class MemberSaveControllerTest: IntegrationTestController() {
     @DisplayName("회원 가입")
     fun saveMember01() {
         // given
-        val request = MemberSaveRequest(
-            email = ""
+        val request = MemberSaveRequestV1(
+            email = "test@test.com"
         )
 
         // when
@@ -29,10 +30,6 @@ class MemberSaveControllerTest: IntegrationTestController() {
 
         // then
         resultActions.andExpect { status().isOk }
-
-    }
-
-    class MemberSaveRequest(email: String) {
 
     }
 
