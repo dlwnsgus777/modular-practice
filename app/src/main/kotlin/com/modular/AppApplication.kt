@@ -1,4 +1,4 @@
-package com.modular.app
+package com.modular
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

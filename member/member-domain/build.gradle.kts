@@ -3,4 +3,5 @@ tasks.bootJar {
 }
 
 dependencies {
+    implementation(project(":common"))
 }

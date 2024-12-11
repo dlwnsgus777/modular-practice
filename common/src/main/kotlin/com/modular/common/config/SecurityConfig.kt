@@ -2,6 +2,11 @@ package com.modular.common.config
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.security.config.annotation.web.builders.HttpSecurity
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
+import org.springframework.security.config.http.SessionCreationPolicy
+import org.springframework.security.web.SecurityFilterChain
+import org.springframework.web.cors.CorsConfiguration
 
 @Configuration
 @EnableWebSecurity
@@ -23,15 +28,10 @@ class SecurityConfig {
             }
             .headers { headerConfigurer -> headerConfigurer.frameOptions { it.sameOrigin() } }
             .logout { it.disable() }
+            .formLogin { it.disable() }
             .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
             .authorizeHttpRequests {
                 it
-                    .requestMatchers(
-                        "/swagger-ui/**",
-                        "/swagger-ui.html",
-                        "/swagger-resources/**",
-                        "/v3/api-docs/**"
-                    ).permitAll()
                     .anyRequest().permitAll()
             }
 
