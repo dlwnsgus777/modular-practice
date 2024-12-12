@@ -5,3 +5,5 @@ tasks.bootJar {
 dependencies {
     implementation(project(":common"))
 }
+
+tasks.register("prepareKotlinBuildScriptModel"){}

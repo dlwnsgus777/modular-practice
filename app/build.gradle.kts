@@ -6,3 +6,5 @@ dependencies {
 
     testImplementation(project(":member:member-api"))
 }
+
+tasks.register("prepareKotlinBuildScriptModel"){}

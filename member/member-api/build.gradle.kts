@@ -7,3 +7,5 @@ dependencies {
     implementation(project(":member:member-domain"))
 
 }
+
+tasks.register("prepareKotlinBuildScriptModel"){}
