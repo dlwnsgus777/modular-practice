@@ -21,7 +21,7 @@ class MemberSaveController(
     @Operation(summary = "회원 가입")
     @PostMapping
     fun saveMember(@RequestBody request: MemberSaveRequestV1): ResponseEntity<Unit> {
-
+        memberSaveExecutor.execute(request)
         return ResponseEntity.ok().build()
     }
 

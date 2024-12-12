@@ -3,6 +3,6 @@ tasks.bootJar {
 }
 
 dependencies {
-    implementation(project(":member:member-domain"))
     implementation(project(":common"))
+    implementation(project(":member:member-domain"))
 }

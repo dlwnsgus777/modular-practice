@@ -18,7 +18,8 @@ class MemberSaveControllerTest: IntegrationTestController() {
     fun saveMember01() {
         // given
         val request = MemberSaveRequestV1(
-            email = "test@test.com"
+            email = "test@test.com",
+            password = "1234"
         )
 
         // when
