@@ -1,4 +1,4 @@
-package com.modular.common.config
+package com.modular.auth.config
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

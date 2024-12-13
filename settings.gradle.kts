@@ -1,6 +1,7 @@
 rootProject.name = "modular-practice"
 
 include("app")
+include("auth")
 include("common")
 
 include(
