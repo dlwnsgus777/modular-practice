@@ -14,7 +14,6 @@ class TokenFilter(
     private val tokenParser: TokenParser
 ) : Filter {
     override fun doFilter(request: ServletRequest, response: ServletResponse, chain: FilterChain) {
-        // TODO: 토큰 구현
         val accessToken = resolveAccessToken(request as HttpServletRequest)
         if (accessToken.isNotBlank() && tokenParser.validAccessToken(accessToken)) {
             val authentication = tokenParser.extractAuthentication(accessToken)
