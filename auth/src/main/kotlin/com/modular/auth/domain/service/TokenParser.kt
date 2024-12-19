@@ -5,7 +5,7 @@ import org.springframework.security.core.Authentication
 interface TokenParser {
     fun validAccessToken(accessToken: String): Boolean
 
-    fun extractAuthentication(accessToken: String): Authentication
+    fun validRefreshToken(refreshToken: String): Boolean
 
-    fun test(): String
+    fun extractAuthentication(accessToken: String): Authentication
 }

@@ -1,8 +1,10 @@
 package com.modular.auth.infra
 
 import com.modular.auth.domain.service.TokenParser
+import com.modular.auth.domain.service.type.TokenType
 import com.modular.auth.infra.JwtTokenProvider.Companion.AUTHORITIES_KEY
 import com.modular.auth.infra.JwtTokenProvider.Companion.AUTHORITY_DELIMITER
+import com.modular.auth.infra.JwtTokenProvider.Companion.TOKEN_TYPE_KEY
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.ExpiredJwtException
 import io.jsonwebtoken.JwtException
@@ -26,7 +28,11 @@ class JwtTokenParser(
         .build()
 
     override fun validAccessToken(accessToken: String): Boolean {
-        TODO("Not yet implemented")
+        return isValidToken(accessToken, TokenType.ACCESS)
+    }
+
+    override fun validRefreshToken(refreshToken: String): Boolean {
+        return isValidToken(refreshToken, TokenType.REFRESH)
     }
 
     override fun extractAuthentication(accessToken: String): Authentication {
@@ -61,7 +67,17 @@ class JwtTokenParser(
             .toSet()
     }
 
-    override fun test(): String {
-        return secretKey
+    private fun isValidToken(
+        token: String,
+        tokenType: TokenType
+    ): Boolean {
+        try {
+            val claims = jwtParser.parseSignedClaims(token).payload
+            val extractedType = TokenType.valueOf(claims[TOKEN_TYPE_KEY, String::class.java])
+
+            return extractedType === tokenType
+        } catch (e: JwtException) {
+            return false
+        }
     }
 }

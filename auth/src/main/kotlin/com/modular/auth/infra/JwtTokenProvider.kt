@@ -1,6 +1,7 @@
 package com.modular.auth.infra
 
 import com.modular.auth.domain.service.TokenProvider
+import com.modular.auth.domain.service.type.TokenType
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.security.Keys
 import org.springframework.beans.factory.annotation.Value
@@ -26,7 +27,7 @@ class JwtTokenProvider(
         return Jwts.builder()
             .subject(authentication.name)
             .claim(AUTHORITIES_KEY, toString(authentication.authorities))
-            .claim(TOKEN_TYPE_KEY, ACCESS)
+            .claim(TOKEN_TYPE_KEY, TokenType.ACCESS)
             .signWith(secretKey)
             .issuedAt(now)
             .expiration(validity)
@@ -34,7 +35,15 @@ class JwtTokenProvider(
     }
 
     override fun createRefreshToken(): String {
-        TODO("Not yet implemented")
+        val now = Date()
+        val validity = Date(now.time + refreshTokenValidityInMilliseconds)
+
+        return Jwts.builder()
+            .claim(TOKEN_TYPE_KEY, TokenType.REFRESH)
+            .signWith(secretKey)
+            .issuedAt(now)
+            .expiration(validity)
+            .compact()
     }
 
     private fun toString(authorities: Collection<GrantedAuthority>): String {
@@ -45,6 +54,5 @@ class JwtTokenProvider(
         const val AUTHORITIES_KEY = "auth"
         const val AUTHORITY_DELIMITER = ","
         const val TOKEN_TYPE_KEY = "type"
-        const val ACCESS = "ACCESS"
     }
 }
