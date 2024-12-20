@@ -1,7 +1,7 @@
 package com.modular.member.command.api
 
-import com.modular.member.command.api.dto.MemberSaveRequestV1
-import com.modular.member.command.executor.MemberSaveExecutor
+import com.modular.member.command.api.dto.MemberLoginRequestV1
+import com.modular.member.command.api.dto.MemberLoginResponseV1
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.ResponseEntity
@@ -13,15 +13,14 @@ import org.springframework.web.bind.annotation.RestController
 @Tag(name = "회원")
 @RestController
 @RequestMapping("/api/v1/members")
-class MemberSaveController(
-    private val memberSaveExecutor: MemberSaveExecutor,
+class MemberLoginLogoutController(
 ) {
 
-    @Operation(summary = "회원 가입")
-    @PostMapping
-    fun saveMember(@RequestBody request: MemberSaveRequestV1): ResponseEntity<Unit> {
-        memberSaveExecutor.execute(request)
-        return ResponseEntity.ok().build()
+    @Operation(summary = "로그인")
+    @PostMapping("/login")
+    fun loginMember(@RequestBody request: MemberLoginRequestV1): ResponseEntity<MemberLoginResponseV1> {
+
+        return ResponseEntity.ok(MemberLoginResponseV1("", ""))
     }
 
 }
