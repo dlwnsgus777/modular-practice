@@ -10,12 +10,11 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
-import org.springframework.test.web.client.match.MockRestRequestMatchers.jsonPath
 import org.springframework.test.web.servlet.ResultActions
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers.print
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
-
 
 class MemberLoginLogoutControllerTest : IntegrationTestController() {
 
@@ -40,15 +39,18 @@ class MemberLoginLogoutControllerTest : IntegrationTestController() {
 
         // when
         val resultActions: ResultActions = mockMvc.perform(
-            post("/api/v1/members/{memberId}/login", 1)
+            post("/api/v1/members/login")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(request))
         ).andDo { print() }
 
         // then
-        resultActions.andExpect { status().isOk }
-            .andExpect { jsonPath("$.accessToken").isNotEmpty }
-            .andExpect { jsonPath("$.refreshToken").isNotEmpty }
+        resultActions
+            .andExpectAll(
+                status().isOk,
+                jsonPath("$.accessToken").exists(),
+                jsonPath("$.refreshToken").exists()
+            )
     }
 
 }

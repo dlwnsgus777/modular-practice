@@ -44,7 +44,7 @@ class SecurityConfig(
                         "/v3/api-docs/**"
                     ).permitAll()
                     .requestMatchers(HttpMethod.POST, "/api/v1/members").permitAll()
-                    .requestMatchers(HttpMethod.POST, "/api/v1/login").permitAll()
+                    .requestMatchers(HttpMethod.POST, "/api/v1/members/login").permitAll()
                     .anyRequest().authenticated()
             }
             .addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter::class.java)

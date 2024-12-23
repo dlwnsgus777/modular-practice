@@ -18,9 +18,9 @@ class MemberLoginLogoutController(
 
     @Operation(summary = "로그인")
     @PostMapping("/login")
-    fun loginMember(@RequestBody request: MemberLoginRequestV1): ResponseEntity<MemberLoginResponseV1> {
+    fun loginMember(@RequestBody request: MemberLoginRequestV1): ResponseEntity<String> {
 
-        return ResponseEntity.ok(MemberLoginResponseV1("", ""))
+        return ResponseEntity.ok("test")
     }
 
 }
