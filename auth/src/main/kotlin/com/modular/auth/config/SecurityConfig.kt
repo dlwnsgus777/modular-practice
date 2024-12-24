@@ -23,7 +23,7 @@ class SecurityConfig(
             .cors { corsConfigurer ->
                 corsConfigurer.configurationSource {
                     CorsConfiguration().apply {
-                        this.allowedOrigins = listOf("*") // TODO: need to change
+                        this.allowedOrigins = listOf("*")
                         this.allowedMethods = listOf("*")
                         this.allowedHeaders = listOf("*")
                         this.allowCredentials = false

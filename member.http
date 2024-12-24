@@ -1,0 +1,18 @@
+### 회원가입 요청
+POST localhost:8080/api/v1/members
+Content-Type: application/json
+
+{
+  "email": "test@test.com",
+  "password": "ratel0801!"
+}
+
+
+### 로그인 요청
+POST localhost:8080/api/v1/members/login
+Content-Type: application/json
+
+{
+  "email": "test@test.com",
+  "password": "ratel0801!"
+}

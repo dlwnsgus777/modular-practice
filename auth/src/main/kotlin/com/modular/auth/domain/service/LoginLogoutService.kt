@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.core.Authentication
+import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.stereotype.Service
 
 @Service
@@ -28,7 +29,7 @@ class LoginLogoutService(
         password: String
     ): Authentication? {
         val authenticationManager = authenticationManagerBuilder.getObject()
-        val authentication = UsernamePasswordAuthenticationToken(email, password)
+        val authentication = UsernamePasswordAuthenticationToken(email, password, setOf(SimpleGrantedAuthority("ROLE_USER")))
         return authenticationManager.authenticate(authentication)
     }
 
