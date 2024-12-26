@@ -1,6 +1,7 @@
 package com.modular.auth.domain.service
 
 import com.modular.auth.domain.service.dto.LoginOutput
+import com.modular.auth.domain.service.type.AuthType
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
@@ -29,7 +30,7 @@ class LoginLogoutService(
         password: String
     ): Authentication? {
         val authenticationManager = authenticationManagerBuilder.getObject()
-        val authentication = UsernamePasswordAuthenticationToken(email, password, setOf(SimpleGrantedAuthority("ROLE_USER")))
+        val authentication = UsernamePasswordAuthenticationToken(email, password, setOf(SimpleGrantedAuthority(AuthType.LOGIN.code)))
         return authenticationManager.authenticate(authentication)
     }
 

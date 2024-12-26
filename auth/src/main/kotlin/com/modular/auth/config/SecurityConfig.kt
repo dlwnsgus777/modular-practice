@@ -1,6 +1,7 @@
 package com.modular.auth.config
 
 import com.modular.auth.domain.service.TokenFilter
+import com.modular.auth.domain.service.type.AuthType
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
@@ -47,7 +48,7 @@ class SecurityConfig(
                     .requestMatchers(HttpMethod.POST, "/api/v1/members").permitAll()
                     .requestMatchers("/api/v1/members/test").permitAll()
                     .requestMatchers(HttpMethod.POST, "/api/v1/members/login").permitAll()
-                    .anyRequest().authenticated()
+                    .anyRequest().hasAnyAuthority(AuthType.LOGIN.code)
             }
             .addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter::class.java)
 
