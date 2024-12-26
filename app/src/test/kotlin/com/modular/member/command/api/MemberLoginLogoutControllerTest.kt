@@ -28,13 +28,14 @@ class MemberLoginLogoutControllerTest : IntegrationTestController() {
     @DisplayName("회원 로그인")
     fun loginMember01() {
         // given
-        val member = MemberFixture.aMember()
+        val password = "password"
+        val member = MemberFixture.aMember(password = password)
         memberRepository.save(member)
         entityManager.flush()
 
         val request: MemberLoginRequestV1 = MemberLoginRequestV1(
             email = member.email,
-            password = member.password
+            password = password
         )
 
         // when

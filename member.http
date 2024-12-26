@@ -16,3 +16,13 @@ Content-Type: application/json
   "email": "test@test.com",
   "password": "ratel0801!"
 }
+
+
+### 회원가입 요청
+GET localhost:8080/api/v1/members/test
+Content-Type: application/json
+
+{
+  "email": "test@test.com",
+  "password": "ratel0801!"
+}
