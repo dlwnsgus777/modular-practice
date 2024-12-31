@@ -1,5 +1,6 @@
 package com.modular.auth.infra
 
+import com.modular.auth.domain.CurrentMember
 import com.modular.auth.domain.service.TokenProvider
 import com.modular.auth.domain.service.type.TokenType
 import io.jsonwebtoken.Jwts
@@ -23,15 +24,21 @@ class JwtTokenProvider(
     override fun createAccessToken(authentication: Authentication): String {
         val now = Date()
         val validity = Date(now.time + accessTokenValidityInMilliseconds)
+        try {
+            val member = authentication.principal as CurrentMember
 
-        return Jwts.builder()
-            .subject(authentication.name)
-            .claim(AUTHORITIES_KEY, toString(authentication.authorities))
-            .claim(TOKEN_TYPE_KEY, TokenType.ACCESS)
-            .signWith(secretKey)
-            .issuedAt(now)
-            .expiration(validity)
-            .compact()
+            return Jwts.builder()
+                .subject(member.username)
+                .claim(AUTHORITIES_KEY, toString(authentication.authorities))
+                .claim(TOKEN_TYPE_KEY, TokenType.ACCESS)
+                .claim(MEMBER_ID, member.id)
+                .signWith(secretKey)
+                .issuedAt(now)
+                .expiration(validity)
+                .compact()
+        } catch (e: Exception) {
+            throw IllegalStateException("CurrentMember error: ${authentication.principal}", e)
+        }
     }
 
     override fun createRefreshToken(): String {
@@ -54,5 +61,6 @@ class JwtTokenProvider(
         const val AUTHORITIES_KEY = "auth"
         const val AUTHORITY_DELIMITER = ","
         const val TOKEN_TYPE_KEY = "type"
+        const val MEMBER_ID = "id"
     }
 }

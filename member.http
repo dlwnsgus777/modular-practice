@@ -18,11 +18,9 @@ Content-Type: application/json
 }
 
 
-### 회원가입 요청
+### 시큐리티 테스트
 GET localhost:8080/api/v1/members/test
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QHRlc3QuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsInR5cGUiOiJBQ0NFU1MiLCJpZCI6MSwiaWF0IjoxNzM1NjA1MzcxLCJleHAiOjE3MzU2MDg5NzF9.m3jguifvOeoLjcLkgD5rT_nMa396Lwg2IpimmSfC3is
 
-{
-  "email": "test@test.com",
-  "password": "ratel0801!"
-}
+

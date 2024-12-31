@@ -46,7 +46,6 @@ class SecurityConfig(
                     ).permitAll()
                     .requestMatchers("/h2-console/**").permitAll()
                     .requestMatchers(HttpMethod.POST, "/api/v1/members").permitAll()
-                    .requestMatchers("/api/v1/members/test").permitAll()
                     .requestMatchers(HttpMethod.POST, "/api/v1/members/login").permitAll()
                     .anyRequest().hasAnyAuthority(AuthType.LOGIN.code)
             }

@@ -1,10 +1,13 @@
 package com.modular.auth.infra
 
+import com.modular.auth.domain.CurrentMember
 import com.modular.auth.domain.service.TokenParser
 import com.modular.auth.domain.service.type.TokenType
 import com.modular.auth.infra.JwtTokenProvider.Companion.AUTHORITIES_KEY
 import com.modular.auth.infra.JwtTokenProvider.Companion.AUTHORITY_DELIMITER
+import com.modular.auth.infra.JwtTokenProvider.Companion.MEMBER_ID
 import com.modular.auth.infra.JwtTokenProvider.Companion.TOKEN_TYPE_KEY
+import com.modular.member.command.domain.repository.MemberRepository
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.ExpiredJwtException
 import io.jsonwebtoken.JwtException
@@ -21,7 +24,8 @@ import org.springframework.stereotype.Component
 
 @Component
 class JwtTokenParser(
-    @Value("\${jwt.secret-key}") private val secretKey: String
+    @Value("\${jwt.secret-key}") private val secretKey: String,
+    private val memberRepository: MemberRepository
 ) : TokenParser {
     private val jwtParser = Jwts.parser()
         .verifyWith(Keys.hmacShaKeyFor(secretKey.toByteArray(Charsets.UTF_8)))
@@ -49,11 +53,12 @@ class JwtTokenParser(
     private fun extractAuthentication(claims: Claims): Authentication {
         val authorities = extractAuthorities(claims)
 
-        val principal = User.builder()
-            .username(claims.subject)
-            .password("N/A")
-            .authorities(authorities)
-            .build()
+        val principal = CurrentMember(
+            id = claims[MEMBER_ID].toString().toLong(),
+            email = claims.subject,
+            password = "N/A",
+            roles = authorities
+        )
 
         return UsernamePasswordAuthenticationToken(principal, null, authorities)
     }
