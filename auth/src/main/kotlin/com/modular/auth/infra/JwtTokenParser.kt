@@ -2,6 +2,7 @@ package com.modular.auth.infra
 
 import com.modular.auth.domain.CurrentMember
 import com.modular.auth.domain.service.TokenParser
+import com.modular.auth.domain.service.type.AuthType
 import com.modular.auth.domain.service.type.TokenType
 import com.modular.auth.infra.JwtTokenProvider.Companion.AUTHORITIES_KEY
 import com.modular.auth.infra.JwtTokenProvider.Companion.AUTHORITY_DELIMITER
@@ -51,7 +52,7 @@ class JwtTokenParser(
     }
 
     private fun extractAuthentication(claims: Claims): Authentication {
-        val authorities = extractAuthorities(claims)
+        val authorities = extractAuthorities(claims) + SimpleGrantedAuthority(AuthType.LOGIN.code)
 
         val principal = CurrentMember(
             id = claims[MEMBER_ID].toString().toLong(),
