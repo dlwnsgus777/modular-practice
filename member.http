@@ -19,8 +19,8 @@ Content-Type: application/json
 
 
 ### 시큐리티 테스트
-GET localhost:8080/api/v1/members/test
+GET localhost:8080/api/v1/products/test
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QHRlc3QuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsInR5cGUiOiJBQ0NFU1MiLCJpZCI6MSwiaWF0IjoxNzM1NjE0MzIyLCJleHAiOjE3MzU2MTc5MjJ9.BUso-Cz9iARJ7YpFM-x0V4DxQhjCKp3wB3IRxZCcC8s
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QHRlc3QuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsInR5cGUiOiJBQ0NFU1MiLCJpZCI6MSwiaWF0IjoxNzM1Nzc3MTIzLCJleHAiOjE3MzU3ODA3MjN9.rAlftASjdGz1-31uiBv9NnY82fhdjjX0JP1z-P0Cpzo
 
 

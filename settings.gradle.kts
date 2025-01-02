@@ -11,6 +11,13 @@ include(
     "member:member-infra",
 )
 
+include(
+    "product",
+    "product:product-api",
+    "product:product-domain",
+    "product:product-infra",
+)
+
 pluginManagement {
     repositories {
         gradlePluginPortal()
