@@ -35,6 +35,7 @@ class SecurityConfig(
             .headers { headerConfigurer -> headerConfigurer.frameOptions { it.sameOrigin() } }
             .logout { it.disable() }
             .formLogin { it.disable() }
+            .csrf { it.disable() }
             .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
             .authorizeHttpRequests {
                 it
@@ -47,6 +48,8 @@ class SecurityConfig(
                     .requestMatchers("/h2-console/**").permitAll()
                     .requestMatchers(HttpMethod.POST, "/api/v1/members").permitAll()
                     .requestMatchers(HttpMethod.POST, "/api/v1/members/login").permitAll()
+                    .requestMatchers("/api/v1/products").permitAll()
+                    .requestMatchers("/api/v1/products/**").permitAll()
                     .anyRequest().hasAnyAuthority(AuthType.LOGIN.code)
             }
             .addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter::class.java)
