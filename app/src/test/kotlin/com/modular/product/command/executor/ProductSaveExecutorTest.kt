@@ -4,9 +4,12 @@ import com.modular.product.command.api.dto.ProductSaveRequestV1
 import com.modular.support.IntegrationTestController
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.DisplayName
+import org.springframework.beans.factory.annotation.Autowired
 import kotlin.test.Test
 
 class ProductSaveExecutorTest: IntegrationTestController() {
+    @Autowired
+    lateinit var productSaveExecutor: ProductSaveExecutor
 
     @Test
     @DisplayName("상품 저장")
@@ -19,7 +22,7 @@ class ProductSaveExecutorTest: IntegrationTestController() {
         )
 
         // when
-        val result = ProductSaveExecutor().execute(request)
+        val result = productSaveExecutor.execute(request)
 
         // then
         assertNotNull(result.id)

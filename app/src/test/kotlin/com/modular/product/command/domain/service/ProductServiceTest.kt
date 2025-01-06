@@ -2,17 +2,19 @@ package com.modular.product.command.domain.service
 
 import com.modular.product.command.domain.service.input.ProductSaveInput
 import com.modular.product.command.domain.service.output.ProductSaveOutput
-import org.junit.jupiter.api.Assertions.*
+import com.modular.product.command.infra.FakeProductRepository
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
-import org.junit.jupiter.api.Test
+import kotlin.test.Test
+
 
 class ProductServiceTest {
     lateinit var productService: ProductService
 
     @BeforeEach
     fun setUp() {
-        productService = ProductService()
+        productService = ProductService(FakeProductRepository())
     }
 
     @Test

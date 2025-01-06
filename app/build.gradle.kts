@@ -11,6 +11,10 @@ dependencies {
     implementation(project(":product:product-infra"))
 
     testImplementation(project(":member:member-api"))
+    
+    testImplementation(project(":product:product-domain"))
+    testImplementation(project(":product:product-infra"))
+
 }
 
 tasks.register("prepareKotlinBuildScriptModel"){}
