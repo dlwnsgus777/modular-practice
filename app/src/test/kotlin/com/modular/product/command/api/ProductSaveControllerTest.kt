@@ -33,6 +33,9 @@ class ProductSaveControllerTest : IntegrationTestController() {
         // then
         resultActions.andExpectAll(
             status().isOk,
+            jsonPath("$.id").exists(),
+            jsonPath("$.productName").exists(),
+            jsonPath("$.imageUrl").exists()
         )
     }
 }
