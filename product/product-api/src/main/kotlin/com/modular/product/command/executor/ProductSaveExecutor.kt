@@ -11,7 +11,13 @@ class ProductSaveExecutor(
 ) {
 
     fun execute(request: ProductSaveRequestV1): ProductSaveResponseV1 {
-        TODO("Not yet implemented")
+        val result = productService.save(request.toInput())
+        return ProductSaveResponseV1(
+            id = result.id,
+            productName = result.productName,
+            price = result.price,
+            imageUrl = result.imageUrl,
+        )
     }
 
 }
