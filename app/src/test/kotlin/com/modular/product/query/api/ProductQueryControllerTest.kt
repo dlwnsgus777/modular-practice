@@ -42,4 +42,26 @@ class ProductQueryControllerTest : IntegrationTestController() {
             jsonPath("$.productList").exists(),
         )
     }
+
+    @Test
+    @DisplayName("상품 상세 조회")
+    fun getProduct01() {
+        // given
+        val product01 = ProductFixture.aProduct(productName = "상품1")
+
+        jpaProductRepository.save(product01)
+        jpaProductRepository.flush()
+
+        // when
+        val resultActions: ResultActions = mockMvc.perform(
+            get("/api/v1/products/{productId}", product01.id)
+        ).andDo { print() }
+
+        // then
+        resultActions.andExpectAll(
+            status().isOk,
+            jsonPath("$.product.id").exists(),
+            jsonPath("$.product.id").value(product01.id),
+        )
+    }
 }

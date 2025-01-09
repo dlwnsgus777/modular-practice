@@ -25,4 +25,5 @@ class ProductQueryController(
         val result = readOnlyProductRepository.findAll(pageable)
         return ResponseEntity.ok(ProductListQueryResponseV1.from(result))
     }
+
 }
