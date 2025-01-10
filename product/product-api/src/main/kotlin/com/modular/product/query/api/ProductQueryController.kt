@@ -22,7 +22,10 @@ class ProductQueryController(
 
     @Operation(summary = "상품 목록 조회")
     @GetMapping
-    fun getProductList(@RequestParam page: Int, @RequestParam pageSize: Int): ResponseEntity<ProductListQueryResponseV1> {
+    fun getProductList(
+        @RequestParam page: Int,
+        @RequestParam pageSize: Int
+    ): ResponseEntity<ProductListQueryResponseV1> {
         val pageable = PageRequest.of(page, pageSize)
         val result = readOnlyProductRepository.findAll(pageable)
         return ResponseEntity.ok(ProductListQueryResponseV1.from(result))
@@ -30,7 +33,7 @@ class ProductQueryController(
 
     @Operation(summary = "상품 상세 조회")
     @GetMapping("/{productId}")
-    fun getProductInfo(@PathVariable productId:Long): ResponseEntity<ProductInfoQueryResponseV1> {
+    fun getProductInfo(@PathVariable productId: Long): ResponseEntity<ProductInfoQueryResponseV1> {
         val result = readOnlyProductRepository.findById(productId) ?: throw IllegalArgumentException("상품이 존재하지 않습니다.")
         return ResponseEntity.ok(ProductInfoQueryResponseV1.from(result))
     }
