@@ -45,7 +45,7 @@ class ProductQueryControllerTest : IntegrationTestController() {
 
     @Test
     @DisplayName("상품 상세 조회")
-    fun getProduct01() {
+    fun getProductInfo01() {
         // given
         val product01 = ProductFixture.aProduct(productName = "상품1")
 

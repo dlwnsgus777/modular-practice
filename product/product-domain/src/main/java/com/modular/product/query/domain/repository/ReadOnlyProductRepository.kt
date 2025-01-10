@@ -6,4 +6,5 @@ import org.springframework.data.domain.Pageable
 
 interface ReadOnlyProductRepository {
     fun findAll(pageable: Pageable): Page<ReadOnlyProduct>
+    fun findById(productId: Long): ReadOnlyProduct?
 }
