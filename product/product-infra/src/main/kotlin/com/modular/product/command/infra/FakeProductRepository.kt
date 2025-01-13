@@ -3,7 +3,7 @@ package com.modular.product.command.infra
 import com.modular.product.command.domain.Product
 import com.modular.product.command.domain.repository.ProductRepository
 
-class FakeProductRepository: ProductRepository {
+class FakeProductRepository : ProductRepository {
     private val datas = mutableListOf<Product>()
 
     override fun save(product: Product): Product {
