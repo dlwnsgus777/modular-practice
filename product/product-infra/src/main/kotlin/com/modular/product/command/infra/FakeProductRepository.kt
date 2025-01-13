@@ -8,11 +8,15 @@ class FakeProductRepository: ProductRepository {
 
     override fun save(product: Product): Product {
         if (product.id != null) {
-            throw IllegalArgumentException("상품 ID가 이미 존재합니다.")
+            datas.removeIf { it.id == product.id }
         }
         datas.add(product)
         product.id = datas.size.toLong()
         return product
+    }
+
+    override fun findById(productId: Long): Product? {
+        return datas.find { it.id == productId }
     }
 
 }

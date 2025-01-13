@@ -10,6 +10,6 @@ class ProductUpdateExecutor(
 ) {
 
     fun execute(productId: Long, request: ProductUpdateRequestV1) {
-        TODO("Not yet implemented")
+        productService.update(productId, request.toInput())
     }
 }

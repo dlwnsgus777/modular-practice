@@ -1,7 +1,7 @@
 package com.modular.product.command.api
 
-import com.modular.product.command.api.dto.ProductSaveRequestV1
-import com.modular.product.command.executor.ProductSaveExecutor
+import com.modular.product.command.api.dto.ProductUpdateRequestV1
+import com.modular.product.command.executor.ProductUpdateExecutor
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.ResponseEntity
@@ -15,15 +15,16 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/v1/products")
 class ProductUpdateController(
-    private val productSaveExecutor: ProductSaveExecutor,
+    private val productUpdateExecutor: ProductUpdateExecutor,
 ) {
 
     @Operation(summary = "상품 수정")
     @PostMapping("/{productId}")
     fun saveProduct(
         @PathVariable productId: Long,
-        @RequestBody request: ProductSaveRequestV1
+        @RequestBody request: ProductUpdateRequestV1
     ): ResponseEntity<Unit> {
+        productUpdateExecutor.execute(productId, request)
         return ResponseEntity.ok().build()
     }
 

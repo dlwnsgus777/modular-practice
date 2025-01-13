@@ -1,10 +1,11 @@
 package com.modular.product.command.api
 
 import com.modular.fixture.product.ProductFixture
-import com.modular.product.command.api.dto.ProductSaveRequestV1
 import com.modular.product.command.api.dto.ProductUpdateRequestV1
-import com.modular.product.command.infra.JpaProductRepository
+import com.modular.product.command.domain.repository.ProductRepository
 import com.modular.support.IntegrationTestController
+import jakarta.persistence.EntityManager
+import jakarta.persistence.PersistenceContext
 import org.assertj.core.api.SoftAssertions.assertSoftly
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -13,20 +14,22 @@ import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.ResultActions
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers.print
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
 class ProductUpdateControllerTest : IntegrationTestController() {
     @Autowired
-    private lateinit var jpaProductRepository: JpaProductRepository
+    private lateinit var productRepository: ProductRepository
+
+    @PersistenceContext
+    private lateinit var entityManager: EntityManager
 
     @Test
     @DisplayName("상품 수정")
     fun updateProduct01() {
         // given
         val product01 = ProductFixture.aProduct(productName = "상품1")
-        jpaProductRepository.save(product01)
-        jpaProductRepository.flush()
+        productRepository.save(product01)
+        entityManager.flush()
 
         val request = ProductUpdateRequestV1(
             productName = "상품명",
@@ -42,7 +45,7 @@ class ProductUpdateControllerTest : IntegrationTestController() {
         ).andDo { print() }
 
         // then
-        val product = jpaProductRepository.findById(product01.id!!).orElseThrow()
+        val product = productRepository.findById(product01.id!!) ?: throw IllegalArgumentException("상품이 존재하지 않습니다.")
 
          resultActions.andExpectAll(
             status().isOk,

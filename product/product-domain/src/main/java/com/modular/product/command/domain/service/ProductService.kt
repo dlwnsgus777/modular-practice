@@ -18,6 +18,9 @@ class ProductService(
     }
 
     fun update(productId: Long, input: ProductUpdateInput): ProductUpdateOutput {
-        TODO("Not yet implemented")
+        val product = productRepository.findById(productId) ?: throw IllegalArgumentException("상품이 존재하지 않습니다.")
+        product.update(input)
+        val updatedProduct = productRepository.save(product)
+        return ProductUpdateOutput.from(updatedProduct)
     }
 }
