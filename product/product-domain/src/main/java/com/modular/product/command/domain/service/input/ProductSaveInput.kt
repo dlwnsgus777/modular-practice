@@ -8,6 +8,6 @@ data class ProductSaveInput(
     val imageUrl: String
 ) {
     fun toEntity(): Product {
-        return Product(productName, price, imageUrl)
+        return Product(productName, price, imageUrl, false)
     }
 }

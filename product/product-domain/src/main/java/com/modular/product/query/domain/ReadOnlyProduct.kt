@@ -8,6 +8,8 @@ import jakarta.persistence.Table
 @Entity
 @Table(name = "product")
 class ReadOnlyProduct(
+    @Id
+    var id: Long,
     @Column(name = "product_name")
     val productName: String,
 
@@ -17,6 +19,6 @@ class ReadOnlyProduct(
     @Column(name = "image_url")
     val imageUrl: String,
 
-    @Id
-    var id: Long
+    @Column(name = "is_delete")
+    var isDelete: Boolean
 )

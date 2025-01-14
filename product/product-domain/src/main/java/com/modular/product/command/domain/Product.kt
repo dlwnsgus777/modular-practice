@@ -19,7 +19,10 @@ class Product(
     var price: Int,
 
     @Column(name = "image_url")
-    var imageUrl: String
+    var imageUrl: String,
+
+    @Column(name = "is_delete")
+    var isDelete: Boolean
 ) : BaseEntity() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,5 +32,9 @@ class Product(
         input.productName?.let { productName = it }
         input.price?.let { price = it }
         input.imageUrl?.let { imageUrl = it }
+    }
+
+    fun delete() {
+        isDelete = true
     }
 }

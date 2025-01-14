@@ -34,7 +34,7 @@ class ProductQueryController(
     @Operation(summary = "상품 상세 조회")
     @GetMapping("/{productId}")
     fun getProductInfo(@PathVariable productId: Long): ResponseEntity<ProductInfoQueryResponseV1> {
-        val result = readOnlyProductRepository.findById(productId) ?: throw IllegalArgumentException("상품이 존재하지 않습니다.")
+        val result = readOnlyProductRepository.findByIdAndIsDelete(productId, false) ?: throw IllegalArgumentException("상품이 존재하지 않습니다.")
         return ResponseEntity.ok(ProductInfoQueryResponseV1.from(result))
     }
 

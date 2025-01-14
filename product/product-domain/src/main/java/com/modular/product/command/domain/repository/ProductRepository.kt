@@ -4,5 +4,5 @@ import com.modular.product.command.domain.Product
 
 interface ProductRepository {
     fun save(product: Product): Product
-    fun findById(productId: Long): Product?
+    fun findByIdAndIsDelete(productId: Long, isDelete: Boolean): Product?
 }

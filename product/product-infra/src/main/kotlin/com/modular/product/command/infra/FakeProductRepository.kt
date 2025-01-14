@@ -15,8 +15,12 @@ class FakeProductRepository : ProductRepository {
         return product
     }
 
-    override fun findById(productId: Long): Product? {
-        return datas.find { it.id == productId }
+    override fun findByIdAndIsDelete(productId: Long, isDelete: Boolean): Product? {
+        return datas.find { it.id == productId && it.isDelete == isDelete }
     }
+
+//    override fun findByIdAndIsDelete(productId: Long, isDelete: Boolean): Product? {
+//        return datas.find { it.id == productId }
+//    }
 
 }

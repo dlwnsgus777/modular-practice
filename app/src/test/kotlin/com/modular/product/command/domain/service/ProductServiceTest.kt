@@ -13,10 +13,12 @@ import kotlin.test.Test
 
 class ProductServiceTest {
     lateinit var productService: ProductService
+    lateinit var repository: FakeProductRepository
 
     @BeforeEach
     fun setUp() {
-        productService = ProductService(FakeProductRepository())
+        repository = FakeProductRepository()
+        productService = ProductService(repository)
     }
 
     @Test
@@ -56,6 +58,26 @@ class ProductServiceTest {
         assertSoftly {
             it.assertThat(updatedProduct.productName).isEqualTo("상품명")
             it.assertThat(updatedProduct.price).isEqualTo(savedProduct.price)
+        }
+    }
+
+    @Test
+    @DisplayName("상품 삭제")
+    fun deleteProduct01() {
+        // given
+        val productName = "상품1"
+        val price = 1000
+        val imageUrl = "http://image.com"
+        val saveInput = ProductSaveInput(productName, price, imageUrl)
+        val savedProduct: ProductSaveOutput = productService.save(saveInput)
+
+        // when
+        productService.delete(savedProduct.id)
+
+        // then
+        val result = repository.findByIdAndIsDelete(savedProduct.id, false)
+        assertSoftly {
+            it.assertThat(result).isNull()
         }
     }
 }

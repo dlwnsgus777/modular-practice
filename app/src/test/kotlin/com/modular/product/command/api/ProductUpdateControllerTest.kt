@@ -45,7 +45,7 @@ class ProductUpdateControllerTest : IntegrationTestController() {
         ).andDo { print() }
 
         // then
-        val product = productRepository.findById(product01.id!!) ?: throw IllegalArgumentException("상품이 존재하지 않습니다.")
+        val product = productRepository.findByIdAndIsDelete(product01.id!!, false) ?: throw IllegalArgumentException("상품이 존재하지 않습니다.")
 
          resultActions.andExpectAll(
             status().isOk,

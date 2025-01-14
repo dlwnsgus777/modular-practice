@@ -12,9 +12,9 @@ import org.junit.jupiter.api.DisplayName
 import org.springframework.beans.factory.annotation.Autowired
 import kotlin.test.Test
 
-class ProductUpdateExecutorTest: IntegrationTestController() {
+class ProductDeleteExecutorTest: IntegrationTestController() {
     @Autowired
-    lateinit var productUpdateExecutor: ProductUpdateExecutor
+    lateinit var productDeleteExecutor: ProductDeleteExecutor
 
     @Autowired
     lateinit var productRepository: ProductRepository
@@ -31,19 +31,13 @@ class ProductUpdateExecutorTest: IntegrationTestController() {
         productRepository.save(product)
         entityManager.flush()
 
-        val request = ProductUpdateRequestV1(
-            productName = "상품명",
-        )
-
         // when
-        productUpdateExecutor.execute(product.id!!, request)
+        productDeleteExecutor.execute(product.id!!)
 
         // then
-        val result = productRepository.findByIdAndIsDelete(product.id!!, false) ?: throw IllegalArgumentException("상품이 존재하지 않습니다.")
+        val result = productRepository.findByIdAndIsDelete(product.id!!, false)
         assertSoftly {
-            it.assertThat(result.productName).isEqualTo("상품명")
-            it.assertThat(result.price).isEqualTo(1000)
-            it.assertThat(result.imageUrl).isEqualTo("imageUrl")
+            it.assertThat(result).isNull()
         }
     }
 }

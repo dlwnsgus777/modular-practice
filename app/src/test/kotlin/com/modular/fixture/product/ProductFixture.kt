@@ -12,7 +12,8 @@ object ProductFixture {
         return Product(
             productName = productName,
             price = price,
-            imageUrl = imageUrl
+            imageUrl = imageUrl,
+            isDelete = false
         )
     }
 }

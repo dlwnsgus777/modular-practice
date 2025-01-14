@@ -50,7 +50,7 @@ class ReadOnlyProductRepositoryTest {
         jpaProductRepository.flush()
 
         // when
-        val result = readOnlyProductRepository.findById(product01.id!!) ?: throw IllegalArgumentException("상품이 존재하지 않습니다.")
+        val result = readOnlyProductRepository.findByIdAndIsDelete(product01.id!!, false) ?: throw IllegalArgumentException("상품이 존재하지 않습니다.")
 
         // then
         assertThat(result.productName).isEqualTo("상품1")
