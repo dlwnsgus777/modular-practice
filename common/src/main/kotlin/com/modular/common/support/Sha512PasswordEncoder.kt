@@ -1,4 +1,4 @@
-package support
+package com.modular.common.support
 
 import org.springframework.security.crypto.password.PasswordEncoder
 import java.security.MessageDigest

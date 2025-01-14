@@ -1,5 +1,6 @@
 package com.modular.member.command.domain
 
+import com.modular.common.entity.BaseEntity
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
@@ -16,7 +17,7 @@ class Member(
 
     @Column(name = "password")
     val password: String,
-) {
+) : BaseEntity() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null

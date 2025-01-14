@@ -1,6 +1,7 @@
 package com.modular.product.command.domain
 
 import com.modular.product.command.domain.service.input.ProductUpdateInput
+import com.modular.common.entity.BaseEntity
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
@@ -19,7 +20,7 @@ class Product(
 
     @Column(name = "image_url")
     var imageUrl: String
-) {
+) : BaseEntity() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
