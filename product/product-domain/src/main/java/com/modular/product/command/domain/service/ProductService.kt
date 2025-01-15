@@ -11,7 +11,8 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 @Transactional
 class ProductService(
-    private val productRepository: ProductRepository
+    private val productRepository: ProductRepository,
+    private val productNamePolicy: ProductNamePolicy
 ) {
 
     fun save(input: ProductSaveInput): ProductSaveOutput {

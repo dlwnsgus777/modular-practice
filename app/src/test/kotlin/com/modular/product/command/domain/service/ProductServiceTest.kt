@@ -14,11 +14,13 @@ import kotlin.test.Test
 class ProductServiceTest {
     lateinit var productService: ProductService
     lateinit var repository: FakeProductRepository
+    lateinit var productNamePolicy: ProductNamePolicy
 
     @BeforeEach
     fun setUp() {
         repository = FakeProductRepository()
-        productService = ProductService(repository)
+        productNamePolicy = DefaultProductNamePolicy()
+        productService = ProductService(repository, productNamePolicy)
     }
 
     @Test
