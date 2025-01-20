@@ -19,7 +19,7 @@ class ProductServiceTest {
     @BeforeEach
     fun setUp() {
         repository = FakeProductRepository()
-        productNamePolicy = DefaultProductNamePolicy()
+        productNamePolicy = DefaultProductNamePolicy(profanityFilter = {})
         productService = ProductService(repository, productNamePolicy)
     }
 
