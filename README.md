@@ -24,8 +24,6 @@
     - 그 외 특수문자 사용 불가
 - 상품 이름에는 비속어를 포함할 수 없다.
     - PurgoMal# modular-practice
-      모듈형 모놀리스 연습 프로젝트
-
 
 ## 스펙
 - Kotlin
