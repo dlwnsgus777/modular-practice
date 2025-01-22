@@ -25,41 +25,41 @@ class DefaultProductNamePolicyTest {
 
     @Test
     @DisplayName("특수 문자는 (),[],+,-,&,/,_ 만 허용")
-    fun validate01() {
+    fun parsingProductName01() {
         // given
         val name = "상)품명["
 
-        every { filter.doFilter(any()) } returns Unit
+        every { filter.doFilter(any()) } returns name
 
         // when
         // then
-        assertThatCode { policy.validate(name) }.doesNotThrowAnyException()
+        assertThatCode { policy.parsingProductName(name) }.doesNotThrowAnyException()
     }
 
     @Test
     @DisplayName("(),[],+,-,&,/,_외 특수문자는 오류 발생")
-    fun validate02() {
+    fun parsingProductName02() {
         // given
         val name = "상품명**"
 
-        every { filter.doFilter(any()) } returns Unit
+        every { filter.doFilter(any()) } returns name
 
         // when
         // then
-        assertThatThrownBy { policy.validate(name) }.isInstanceOf(IllegalArgumentException::class.java)
+        assertThatThrownBy { policy.parsingProductName(name) }.isInstanceOf(IllegalArgumentException::class.java)
     }
 
     @Test
     @DisplayName("비속어가 들어가면 오류 발생")
-    fun validate03() {
+    fun parsingProductName03() {
         // given
         val name = "시1발"
 
-        every { filter.doFilter(any()) } throws IllegalArgumentException("비속어가 포함되어 있습니다.")
+        every { filter.doFilter(any()) } throws IllegalArgumentException("통신에 실패했습니다.")
 
         // when
         // then
-        assertThatThrownBy { policy.validate(name) }.isInstanceOf(IllegalArgumentException::class.java)
+        assertThatThrownBy { policy.parsingProductName(name) }.isInstanceOf(IllegalArgumentException::class.java)
     }
 
 }

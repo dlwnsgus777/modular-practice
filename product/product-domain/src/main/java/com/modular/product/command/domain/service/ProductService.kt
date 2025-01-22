@@ -16,12 +16,16 @@ class ProductService(
 ) {
 
     fun save(input: ProductSaveInput): ProductSaveOutput {
-        val savedProduct = productRepository.save(input.toEntity())
+        val savedProduct = productRepository.save(input.toEntity(productNamePolicy.parsingProductName(input.productName)))
         return ProductSaveOutput.from(savedProduct)
     }
 
     fun update(productId: Long, input: ProductUpdateInput): ProductUpdateOutput {
         val product = productRepository.findByIdAndIsDelete(productId, false) ?: throw IllegalArgumentException("상품이 존재하지 않습니다.")
+        input.productName?.let {
+            input.productName = productNamePolicy.parsingProductName(it)
+        }
+
         product.update(input)
         val updatedProduct = productRepository.save(product)
         return ProductUpdateOutput.from(updatedProduct)

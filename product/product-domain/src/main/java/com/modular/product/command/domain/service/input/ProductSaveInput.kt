@@ -7,7 +7,7 @@ data class ProductSaveInput(
     val price: Int,
     val imageUrl: String
 ) {
-    fun toEntity(): Product {
-        return Product(productName, price, imageUrl, false)
+    fun toEntity(parsingProductName: String): Product {
+        return Product(parsingProductName, price, imageUrl, false)
     }
 }

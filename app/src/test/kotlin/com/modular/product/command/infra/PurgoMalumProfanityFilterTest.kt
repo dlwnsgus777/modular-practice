@@ -16,7 +16,7 @@ class PurgoMalumProfanityFilterTest {
 
     @Test
     @DisplayName("비속어가 포함되어 있으면 오류 발생")
-    @Disabled
+//    @Disabled
     fun filter01() {
         // given
         val name = "fuck"
