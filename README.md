@@ -23,7 +23,7 @@
     - 가능: (),[],+,-,&,/,_
     - 그 외 특수문자 사용 불가
 - 상품 이름에는 비속어를 포함할 수 없다.
-    - PurgoMal# modular-practice
+    - PurgoMalum
 
 ## 스펙
 - Kotlin
