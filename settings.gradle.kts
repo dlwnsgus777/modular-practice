@@ -18,6 +18,13 @@ include(
     "product:product-infra",
 )
 
+include(
+    "wishlist",
+    "wishlist:wishlist-api",
+    "wishlist:wishlist-domain",
+    "wishlist:wishlist-infra",
+)
+
 pluginManagement {
     repositories {
         gradlePluginPortal()
