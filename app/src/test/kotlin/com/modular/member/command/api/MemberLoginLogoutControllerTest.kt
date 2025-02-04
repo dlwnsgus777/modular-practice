@@ -16,7 +16,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers.print
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
-class MemberLoginLogoutControllerTest : IntegrationTestController() {
+class c8cMemberLoginLogoutControllerTest : IntegrationTestController() {
 
     @Autowired
     lateinit var memberRepository: MemberRepository

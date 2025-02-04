@@ -10,10 +10,18 @@ dependencies {
     implementation(project(":product:product-domain"))
     implementation(project(":product:product-infra"))
 
+    implementation(project(":wishlist:wishlist-api"))
+    implementation(project(":wishlist:wishlist-domain"))
+    implementation(project(":wishlist:wishlist-infra"))
+
+
     testImplementation(project(":member:member-api"))
     
     testImplementation(project(":product:product-domain"))
     testImplementation(project(":product:product-infra"))
+
+    testImplementation(project(":wishlist:wishlist-domain"))
+    testImplementation(project(":wishlist:wishlist-infra"))
 
 }
 
