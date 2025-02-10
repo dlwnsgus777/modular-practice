@@ -35,8 +35,6 @@ class ProductUpdateControllerTest : IntegrationTestController() {
             productName = "상품명",
         )
 
-
-
         // when
         val resultActions: ResultActions = mockMvc.perform(
             post("/api/v1/products/{productId}", product01.id)
