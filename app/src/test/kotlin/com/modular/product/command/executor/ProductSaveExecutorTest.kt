@@ -1,13 +1,17 @@
 package com.modular.product.command.executor
 
 import com.modular.product.command.api.dto.ProductSaveRequestV1
-import com.modular.support.IntegrationTestController
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.DisplayName
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.transaction.annotation.Transactional
 import kotlin.test.Test
 
-class ProductSaveExecutorTest: IntegrationTestController() {
+@Transactional
+@SpringBootTest
+class ProductSaveExecutorTest {
     @Autowired
     lateinit var productSaveExecutor: ProductSaveExecutor
 

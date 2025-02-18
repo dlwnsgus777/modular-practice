@@ -3,16 +3,18 @@ package com.modular.product.command.executor
 import com.modular.fixture.product.ProductFixture
 import com.modular.product.command.api.dto.ProductUpdateRequestV1
 import com.modular.product.command.domain.repository.ProductRepository
-import com.modular.support.IntegrationTestController
 import jakarta.persistence.EntityManager
 import jakarta.persistence.PersistenceContext
 import org.assertj.core.api.SoftAssertions.assertSoftly
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.DisplayName
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.transaction.annotation.Transactional
 import kotlin.test.Test
 
-class ProductUpdateExecutorTest: IntegrationTestController() {
+@Transactional
+@SpringBootTest
+class ProductUpdateExecutorTest {
     @Autowired
     lateinit var productUpdateExecutor: ProductUpdateExecutor
 
