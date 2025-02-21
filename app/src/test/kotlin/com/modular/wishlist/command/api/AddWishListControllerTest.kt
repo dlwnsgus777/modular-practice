@@ -6,13 +6,14 @@ import com.modular.member.command.domain.repository.MemberRepository
 import com.modular.product.command.domain.repository.ProductRepository
 import com.modular.support.IntegrationTestController
 import com.modular.support.SecurityTestSupporter
+import com.modular.wishlist.WishlistRepository
 import com.modular.wishlist.command.api.dto.AddWishListRequestV1
 import jakarta.persistence.EntityManager
 import jakarta.persistence.PersistenceContext
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.ResultActions
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
@@ -28,6 +29,9 @@ class AddWishListControllerTest: IntegrationTestController() {
 
     @Autowired
     private lateinit var securityTestSupporter: SecurityTestSupporter
+
+    @Autowired
+    private lateinit var wishlistRepository: WishlistRepository
 
     @PersistenceContext
     lateinit var entityManager: EntityManager
@@ -63,5 +67,9 @@ class AddWishListControllerTest: IntegrationTestController() {
         resultActions.andExpectAll(
             status().isOk,
         )
+
+        val result = wishlistRepository.findAllByMemberId(saveMember.id!!)
+        assertThat(result).isNotEmpty
+        assertThat(result.size).isEqualTo(1)
     }
 }

@@ -31,7 +31,7 @@ class AddWishListExecutorTest {
     private lateinit var productRepository: ProductRepository
 
     @Autowired
-    lateinit var wishlistRepository: WishlistRepository
+    private lateinit var wishlistRepository: WishlistRepository
 
     @PersistenceContext
     lateinit var entityManager: EntityManager

@@ -20,4 +20,8 @@ class FakeWishlistRepository: WishlistRepository {
         return datas.find { it.id == id }
     }
 
+    override fun findAllByMemberId(memberId: Long): List<Wishlist> {
+        return datas.filter { it.memberId == memberId }
+    }
+
 }
