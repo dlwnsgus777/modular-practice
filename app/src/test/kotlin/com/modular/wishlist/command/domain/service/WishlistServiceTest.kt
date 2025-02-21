@@ -1,9 +1,9 @@
 package com.modular.wishlist.command.domain.service
 
-import com.modular.wishlist.WishlistRepository
+import com.modular.wishlist.command.domain.FakeWishlistRepository
 import com.modular.wishlist.command.domain.Wishlist
-import io.mockk.impl.annotations.MockK
-import io.mockk.verify
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -17,8 +17,13 @@ class WishlistServiceTest {
     @Autowired
     lateinit var wishlistService: WishlistService
 
-    @MockK
-    lateinit var wishlistRepository: WishlistRepository
+    val wishlistRepository = FakeWishlistRepository()
+
+    @BeforeEach
+    fun setUp() {
+        wishlistService = WishlistService(wishlistRepository)
+    }
+
 
     @Test
     @DisplayName("위시리스트 추가")
@@ -33,10 +38,12 @@ class WishlistServiceTest {
         )
 
         // when
-        wishlistService.addWishlist(memberId, productId)
+        val result = wishlistService.addWishlist(memberId, productId)
 
         // then
-        verify { wishlistRepository.save(wishlist) }
+        val savedWishlist = wishlistRepository.findById(result.id!!)
+        assertThat(savedWishlist).isNotNull
+        assertThat(savedWishlist!!.memberId).isEqualTo(memberId)
     }
 
 }
