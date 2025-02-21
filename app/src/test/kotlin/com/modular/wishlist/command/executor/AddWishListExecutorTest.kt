@@ -4,11 +4,13 @@ import com.modular.fixture.member.MemberFixture
 import com.modular.fixture.product.ProductFixture
 import com.modular.member.command.domain.repository.MemberRepository
 import com.modular.product.command.domain.repository.ProductRepository
+import com.modular.wishlist.WishlistRepository
 import com.modular.wishlist.command.domain.service.WishlistService
 import io.mockk.impl.annotations.MockK
 import io.mockk.verify
 import jakarta.persistence.EntityManager
 import jakarta.persistence.PersistenceContext
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -28,8 +30,8 @@ class AddWishListExecutorTest {
     @Autowired
     private lateinit var productRepository: ProductRepository
 
-    @MockK
-    lateinit var wishlistService: WishlistService
+    @Autowired
+    lateinit var wishlistRepository: WishlistRepository
 
     @PersistenceContext
     lateinit var entityManager: EntityManager
@@ -48,11 +50,12 @@ class AddWishListExecutorTest {
         entityManager.flush()
 
         // when
-        addWishListExecutor.execute(saveMember.id!!, product.id!!)
+        val savedId = addWishListExecutor.execute(saveMember.id!!, product.id!!)
 
         // then
-        verify { wishlistService.addWishlist(saveMember.id!!, product.id!!) }
-
+        val savedWishlist = wishlistRepository.findById(savedId)
+        assertThat(savedWishlist).isNotNull
+        assertThat(savedWishlist!!.memberId).isEqualTo(saveMember.id!!)
     }
 
 }

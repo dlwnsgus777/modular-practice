@@ -7,7 +7,8 @@ import org.springframework.stereotype.Component
 class AddWishListExecutor(
     private val wishlistService: WishlistService
 ) {
-    fun execute(memberId: Long, productId: Long) {
-        wishlistService.addWishlist(memberId, productId)
+    fun execute(memberId: Long, productId: Long): Long {
+        val wishlist = wishlistService.addWishlist(memberId, productId)
+        return wishlist.id!!
     }
 }
