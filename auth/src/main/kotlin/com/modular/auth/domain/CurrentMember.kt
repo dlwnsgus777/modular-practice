@@ -1,5 +1,6 @@
 package com.modular.auth.domain
 
+import com.modular.common.config.GetMemberId
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 
@@ -8,7 +9,7 @@ data class CurrentMember(
     private val email: String,
     private val password: String,
     private val roles: Set<GrantedAuthority>
-) : UserDetails {
+) : UserDetails, GetMemberId {
 
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
         return roles.toMutableSet()
@@ -20,5 +21,9 @@ data class CurrentMember(
 
     override fun getUsername(): String {
         return email
+    }
+
+    override fun getMemberId(): Long {
+        return id
     }
 }

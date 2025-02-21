@@ -8,7 +8,6 @@ import com.modular.auth.infra.JwtTokenProvider.Companion.AUTHORITIES_KEY
 import com.modular.auth.infra.JwtTokenProvider.Companion.AUTHORITY_DELIMITER
 import com.modular.auth.infra.JwtTokenProvider.Companion.MEMBER_ID
 import com.modular.auth.infra.JwtTokenProvider.Companion.TOKEN_TYPE_KEY
-import com.modular.member.command.domain.repository.MemberRepository
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.ExpiredJwtException
 import io.jsonwebtoken.JwtException
@@ -20,13 +19,11 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
-import org.springframework.security.core.userdetails.User
 import org.springframework.stereotype.Component
 
 @Component
 class JwtTokenParser(
     @Value("\${jwt.secret-key}") private val secretKey: String,
-    private val memberRepository: MemberRepository
 ) : TokenParser {
     private val jwtParser = Jwts.parser()
         .verifyWith(Keys.hmacShaKeyFor(secretKey.toByteArray(Charsets.UTF_8)))

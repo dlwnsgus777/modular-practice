@@ -4,7 +4,6 @@ tasks.bootJar {
 
 dependencies {
     implementation(project(":common"))
-    implementation(project(":auth"))
     implementation(project(":product:product-domain"))
 
 }
