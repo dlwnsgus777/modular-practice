@@ -11,7 +11,8 @@ class FakeProductRepository : ProductRepository {
             datas.removeIf { it.id == product.id }
         }
         datas.add(product)
-        product.id = datas.size.toLong()
+        // jpa 엔티티로 연동하면서 주석처리
+//        product.id = datas.size.toLong()
         return product
     }
 

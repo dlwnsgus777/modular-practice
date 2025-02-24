@@ -26,7 +26,7 @@ class Product(
 ) : BaseEntity() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null
+    val id: Long? = null
 
     fun update(input: ProductUpdateInput) {
         input.productName?.let { productName = it }

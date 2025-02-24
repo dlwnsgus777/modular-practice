@@ -1,9 +1,9 @@
-package com.modular.wishlist.command.domain
+package com.modular.wishlist.command.infra
 
 import com.modular.wishlist.WishlistRepository
+import com.modular.wishlist.command.domain.Wishlist
 import org.springframework.stereotype.Repository
 
-@Repository
 class FakeWishlistRepository: WishlistRepository {
     private val datas = mutableListOf<Wishlist>()
 
@@ -12,7 +12,8 @@ class FakeWishlistRepository: WishlistRepository {
             datas.removeIf { it.id == wishlist.id }
         }
         datas.add(wishlist)
-        wishlist.id = datas.size.toLong()
+        // jpa 엔티티로 연동하면서 주석처리
+//        wishlist.id = datas.size.toLong()
         return wishlist
     }
 

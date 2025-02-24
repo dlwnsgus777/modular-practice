@@ -1,6 +1,6 @@
 package com.modular.wishlist.command.domain.service
 
-import com.modular.wishlist.command.domain.FakeWishlistRepository
+import com.modular.wishlist.command.infra.FakeWishlistRepository
 import com.modular.wishlist.command.domain.Wishlist
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
