@@ -1,24 +1,31 @@
 package com.modular.product.command.domain.service
 
+import com.modular.product.command.domain.repository.ProductRepository
 import com.modular.product.command.domain.service.input.ProductSaveInput
 import com.modular.product.command.domain.service.input.ProductUpdateInput
 import com.modular.product.command.domain.service.output.ProductSaveOutput
 import com.modular.product.command.infra.FakeProductRepository
+import com.modular.product.command.infra.JpaProductRepository
 import org.assertj.core.api.SoftAssertions.assertSoftly
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.transaction.annotation.Transactional
 import kotlin.test.Test
 
-
+@Transactional
+@SpringBootTest
 class ProductServiceTest {
     lateinit var productService: ProductService
-    lateinit var repository: FakeProductRepository
+
+    @Autowired
+    lateinit var repository: ProductRepository
     lateinit var productNamePolicy: ProductNamePolicy
 
     @BeforeEach
     fun setUp() {
-        repository = FakeProductRepository()
         productNamePolicy = DefaultProductNamePolicy(profanityFilter = { p -> p })
         productService = ProductService(repository, productNamePolicy)
     }

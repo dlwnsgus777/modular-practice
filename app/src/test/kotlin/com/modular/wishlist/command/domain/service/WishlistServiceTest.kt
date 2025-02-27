@@ -1,5 +1,6 @@
 package com.modular.wishlist.command.domain.service
 
+import com.modular.wishlist.WishlistRepository
 import com.modular.wishlist.command.infra.FakeWishlistRepository
 import com.modular.wishlist.command.domain.Wishlist
 import org.assertj.core.api.Assertions.assertThat
@@ -14,16 +15,15 @@ import org.springframework.transaction.annotation.Transactional
 @SpringBootTest
 class WishlistServiceTest {
 
-    @Autowired
     lateinit var wishlistService: WishlistService
 
-    val wishlistRepository = FakeWishlistRepository()
+    @Autowired
+    lateinit var wishlistRepository: WishlistRepository
 
     @BeforeEach
     fun setUp() {
         wishlistService = WishlistService(wishlistRepository)
     }
-
 
     @Test
     @DisplayName("위시리스트 추가")

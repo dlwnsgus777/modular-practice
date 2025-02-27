@@ -17,8 +17,7 @@ class ProductService(
 ) {
 
     fun save(input: ProductSaveInput): ProductSaveOutput {
-        val savedProduct =
-            productRepository.save(input.toEntity(productNamePolicy.parsingProductName(input.productName)))
+        val savedProduct = productRepository.save(input.toEntity(productNamePolicy.parsingProductName(input.productName)))
         return ProductSaveOutput.from(savedProduct)
     }
 
@@ -40,8 +39,7 @@ class ProductService(
     }
 
     private fun getProduct(productId: Long): Product {
-        return productRepository.findByIdAndIsDelete(productId, false)
-            ?: throw IllegalArgumentException("상품이 존재하지 않습니다.")
+        return productRepository.findByIdAndIsDelete(productId, false) ?: throw IllegalArgumentException("상품이 존재하지 않습니다.")
     }
 }
 
