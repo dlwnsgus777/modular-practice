@@ -70,6 +70,8 @@ class WishlistQueryControllerTest: IntegrationTestController() {
         resultActions.andExpectAll(
             status().isOk,
             jsonPath("$.wishlists").exists(),
+            jsonPath("$.wishlists").isNotEmpty(),
+            jsonPath("$.wishlists[0].productName").value("상품1"),
         )
     }
 }
