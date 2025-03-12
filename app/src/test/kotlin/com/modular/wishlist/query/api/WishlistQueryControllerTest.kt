@@ -8,8 +8,14 @@ import com.modular.support.IntegrationTestController
 import com.modular.support.SecurityTestSupporter
 import com.modular.wishlist.WishlistRepository
 import com.modular.wishlist.command.domain.Wishlist
+import com.modular.wishlist.query.executor.GetWishlistExecutor
+import com.modular.wishlist.query.executor.WishlistOutput
+import com.ninjasquad.springmockk.MockkBean
+import io.mockk.MockKAnnotations
+import io.mockk.every
 import jakarta.persistence.EntityManager
 import jakarta.persistence.PersistenceContext
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -20,7 +26,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
-class WishlistQueryControllerTest: IntegrationTestController() {
+class WishlistQueryControllerTest : IntegrationTestController() {
     @Autowired
     private lateinit var memberRepository: MemberRepository
 
@@ -33,8 +39,16 @@ class WishlistQueryControllerTest: IntegrationTestController() {
     @Autowired
     private lateinit var wishlistRepository: WishlistRepository
 
+    @MockkBean
+    private lateinit var getWishlistExecutor: GetWishlistExecutor
+
     @PersistenceContext
     lateinit var entityManager: EntityManager
+
+    @BeforeEach
+    fun setup() {
+        MockKAnnotations.init(this)
+    }
 
     @Test
     @DisplayName("위시리스트 조회")
@@ -44,7 +58,7 @@ class WishlistQueryControllerTest: IntegrationTestController() {
         val member = MemberFixture.aMember(password = password)
         val saveMember = memberRepository.save(member)
 
-        val product = ProductFixture.aProduct(productName = "상품1")
+        val product = ProductFixture.aProduct(productName = "상품5")
         productRepository.save(product)
 
         val wishlist = Wishlist(saveMember.id!!, product.id!!)
@@ -52,10 +66,23 @@ class WishlistQueryControllerTest: IntegrationTestController() {
 
         entityManager.flush()
 
-        val accessToken = securityTestSupporter.createTestAccessToken(saveMember.id!!, saveMember.email)
+        val accessToken = securityTestSupporter.createTestAccessToken(
+            saveMember.id!!, saveMember.email
+        )
 
         val page = 0
         val pageSize = 10
+
+        every {
+            getWishlistExecutor.execute(
+                saveMember.id!!,
+                page,
+                pageSize
+            )
+        } returns listOf(
+            WishlistOutput(wishlist.id!!, product.id!!, "상품5")
+        )
+
 
         // when
         val resultActions: ResultActions = mockMvc.perform(
@@ -71,7 +98,7 @@ class WishlistQueryControllerTest: IntegrationTestController() {
             status().isOk,
             jsonPath("$.wishlists").exists(),
             jsonPath("$.wishlists").isNotEmpty(),
-            jsonPath("$.wishlists[0].productName").value("상품1"),
+            jsonPath("$.wishlists[0].productName").value("상품5"),
         )
     }
 }
