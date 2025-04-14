@@ -1,9 +1,13 @@
 package com.modular.wishlist.query.api.dto
 
 import com.modular.wishlist.query.executor.WishlistOutput
+import org.springframework.data.domain.Page
 
 data class GetWishlistResponse(
-    val wishlists: List<WishlistResponse>
+    val wishlist: List<WishlistResponse>,
+    val page: Int,
+    val pageSize: Int,
+    val totalElements: Long = 0,
 ) {
     data class WishlistResponse(
         val wishlistId: Long,
@@ -18,8 +22,13 @@ data class GetWishlistResponse(
     }
 
     companion object {
-        fun from(list: List<WishlistOutput>): GetWishlistResponse {
-            return GetWishlistResponse(list.map { WishlistResponse.from(it) })
+        fun from(result: Page<WishlistOutput>): GetWishlistResponse {
+            return GetWishlistResponse(
+                result.content.map { WishlistResponse.from(it) },
+                result.pageable.pageNumber,
+                result.pageable.pageSize,
+                result.totalElements
+            )
         }
     }
 }

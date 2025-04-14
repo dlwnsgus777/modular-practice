@@ -8,6 +8,7 @@ import com.modular.support.IntegrationTestController
 import com.modular.support.SecurityTestSupporter
 import com.modular.wishlist.WishlistRepository
 import com.modular.wishlist.command.domain.Wishlist
+import com.modular.wishlist.query.api.dto.GetWishlistResponse
 import com.modular.wishlist.query.executor.GetWishlistExecutor
 import com.modular.wishlist.query.executor.WishlistOutput
 import com.ninjasquad.springmockk.MockkBean
@@ -19,6 +20,9 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.PageImpl
+import org.springframework.data.domain.PageRequest
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.ResultActions
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
@@ -70,8 +74,20 @@ class WishlistQueryControllerTest : IntegrationTestController() {
             saveMember.id!!, saveMember.email
         )
 
+        val content = listOf(
+            WishlistOutput(
+                wishlistId = wishlist.id!!,
+                productId = product.id!!,
+                productName = product.productName,
+            )
+        )
         val page = 0
         val pageSize = 10
+        val pageImpl = PageImpl(
+            content,
+            PageRequest.of(page, pageSize),
+            content.size.toLong()
+        )
 
         every {
             getWishlistExecutor.execute(
@@ -79,9 +95,7 @@ class WishlistQueryControllerTest : IntegrationTestController() {
                 page,
                 pageSize
             )
-        } returns listOf(
-            WishlistOutput(wishlist.id!!, product.id!!, "상품5")
-        )
+        } returns pageImpl
 
 
         // when
@@ -96,9 +110,9 @@ class WishlistQueryControllerTest : IntegrationTestController() {
         // then
         resultActions.andExpectAll(
             status().isOk,
-            jsonPath("$.wishlists").exists(),
-            jsonPath("$.wishlists").isNotEmpty(),
-            jsonPath("$.wishlists[0].productName").value("상품5"),
+            jsonPath("$.wishlist").exists(),
+            jsonPath("$.wishlist").isNotEmpty(),
+            jsonPath("$.wishlist[0].productName").value("상품5"),
         )
     }
 }
